@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Monster Slayer </title>
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+
+</head>
+<body>
+<div id="ap">
+    <section class=" hero row">
+        <div class="hero-body">
+            <h1 class="title is-2 has-text-centered has-text-danger">Slain the monster !</h1>
+            <div class="columns is-centered">
+                <div class="column is-5">
+                    <h1 class="title is-3 text-center">
+                        You</h1>
+                    <div class="healthbar">
+                        <div class="healthbar text-center" 
+                        style="background-color: green; margin: 0; color: white;"
+                        :style="{width: playerHealth + '%'}">
+                            {{playerHealth}}
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-5">
+                    <h1 class="text-center title is-3">Monster</h1>
+                    <div class="healthbar">
+                        <div class="healthbar text-center" 
+                        style="background-color: green; margin: 0; color: white;"
+                        :style="{width : monsterHealth + '%'}">
+                        {{monsterHealth}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>  
+    <section class="row controls" v-if="!gameIsRunning">
+        <div class="columns is-centered">
+            <button class="button is-medium" id="start-game" @click="startGame">Start new game</button>
+        </div>
+    </section>
+    <section class="row controls" v-else>
+        <div class="columns is-centered">
+            <div class="buttons are-medium">
+                <button class="button is-warning" id="attack" @click="attack">ATTACK</button>
+                <button class="button is-danger" id="special-attack" @click="specialAttack">SPECIAL ATTACK</button>
+                <button class="button is-primary" id="heal" @click="heal">HEAL</button>
+                <button class="button" id="give-up" @click="giveUp">GIVE UP</button>
+            </div>
+        </div>
+    </section>
+    <section class="row log" v-if="turns.length > 0">
+        <div class="columns is-centered">
+            <ul>
+                <li v-for=" turn in turns"
+                 :class ="{'player-turn': turn.isPlayer , 
+                           'monster-turn': !turn.isPlayer}">
+                    {{turn.text}}
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.common.dev.js"></script>
+
+<script src="app.js"></script>
+
+</body>
+</html>
